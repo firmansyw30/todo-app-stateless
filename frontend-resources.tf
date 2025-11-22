@@ -13,12 +13,12 @@ resource "google_cloud_run_service" "frontend" {
     spec {
       containers {
         image = "${var.region}-docker.pkg.dev/${var.project_id}/${google_artifact_registry_repository.frontend_repo.repository_id}/web:latest"
-        
+
         ports {
           container_port = 8080
         }
 
-        # THIS IS IMPORTANT: Inject Backend URL automatically
+        # Inject Backend URL automatically
         env {
           name  = "BACKEND_URL"
           value = google_cloud_run_service.backend.status[0].url

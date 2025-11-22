@@ -13,15 +13,15 @@ resource "google_cloud_run_service" "backend" {
     spec {
       containers {
         image = "${var.region}-docker.pkg.dev/${var.project_id}/${google_artifact_registry_repository.backend_repo.repository_id}/api:latest"
-        
+
         ports {
           container_port = 8080
         }
-        
+
         # Environment variable standard
         env {
-            name = "ALLOWED_ORIGIN"
-            value = "*" 
+          name  = "ALLOWED_ORIGIN"
+          value = "*"
         }
       }
     }
@@ -31,7 +31,7 @@ resource "google_cloud_run_service" "backend" {
     percent         = 100
     latest_revision = true
   }
-  
+
 }
 
 resource "google_cloud_run_service_iam_member" "backend_public" {
