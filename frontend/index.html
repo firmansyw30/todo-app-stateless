@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Stateless TODO — Simple</title>
+
+  <style>
+    :root{
+      --bg:#f6f5f8;
+      --card:#ffffff;
+      --accent:#6b5b95;
+      --muted:#717171;
+      --success:#2e7d32;
+      --danger:#c62828;
+    }
+    html,body{height:100%;margin:0;font-family:Inter,ui-sans-serif,system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial}
+    body{background:linear-gradient(180deg,#eef2f7, #f6f5f8);display:flex;align-items:center;justify-content:center;padding:32px}
+    .app{
+      width:100%;max-width:760px;background:var(--card);border-radius:12px;box-shadow:0 6px 20px rgba(20,20,30,0.08);overflow:hidden
+    }
+    header{padding:20px 24px;border-bottom:1px solid rgba(0,0,0,0.04);display:flex;align-items:center;gap:12px}
+    header h1{margin:0;font-size:18px;color:var(--accent)}
+    header p{margin:0;color:var(--muted);font-size:13px}
+    .panel{padding:18px 24px}
+    form#addForm{display:flex;gap:8px;align-items:center}
+    input#title{
+      flex:1;padding:10px 12px;border-radius:8px;border:1px solid rgba(0,0,0,0.08);font-size:15px
+    }
+    button[type="submit"]{
+      background:var(--accent);color:white;padding:10px 14px;border-radius:8px;border:0;font-weight:600;cursor:pointer
+    }
+    #list{margin-top:16px;display:flex;flex-direction:column;gap:8px;min-height:120px}
+    .todo{
+      display:flex;align-items:center;gap:12px;padding:10px;border-radius:10px;border:1px solid rgba(0,0,0,0.04);
+      background:linear-gradient(180deg,#ffffff,#fbfbfd);box-shadow:0 2px 6px rgba(16,16,22,0.02)
+    }
+    .todo .title{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:15px}
+    .todo.completed .title{text-decoration:line-through;color:var(--muted)}
+    .todo input[type="checkbox"]{width:18px;height:18px;cursor:pointer}
+    .delete-btn{
+      background:transparent;border:0;font-size:16px;padding:6px 8px;border-radius:8px;cursor:pointer;color:var(--danger)
+    }
+    .empty-state{
+      padding:24px;border-radius:8px;border:1px dashed rgba(0,0,0,0.06);text-align:center;color:var(--muted)
+    }
+    .error-msg{padding:12px;border-radius:8px;background:#fff5f5;border:1px solid rgba(198,40,40,0.08);color:var(--danger)}
+    footer{padding:12px 18px;border-top:1px solid rgba(0,0,0,0.04);font-size:12px;color:var(--muted);text-align:right}
+    @media (max-width:520px){
+      header{flex-direction:column;align-items:flex-start;gap:6px}
+      input#title{font-size:14px}
+    }
+  </style>
+</head>
+<body>
+  <main class="app" role="application" aria-labelledby="app-title">
+    <header>
+      <div>
+        <h1 id="app-title">Stateless TODO</h1>
+        <p>Frontend ringan yang bergantung ke API (stateless)</p>
+      </div>
+    </header>
+
+    <section class="panel" aria-label="controls">
+      <form id="addForm" autocomplete="off" aria-label="Tambah todo">
+        <input id="title" name="title" type="text" placeholder="Tambah tugas baru..." aria-label="Judul todo" />
+        <button type="submit" aria-label="Tambahkan">Tambah</button>
+      </form>
+
+      <div id="list" aria-live="polite" aria-atomic="true">
+      </div>
+    </section>
+
+    <footer>
+      Backend: <code id="backend-info">—</code>
+    </footer>
+  </main>
+
+  <script>
+    (function(){
+      function show() {
+        const info = document.getElementById('backend-info');
+        const url = (window.env && window.env.BACKEND_URL) ? window.env.BACKEND_URL : "http://localhost:8080 (Fallback)";
+        info.textContent = url;
+      }
+      show();
+      document.addEventListener('DOMContentLoaded', show);
+    })();
+  </script>
+
+  <!-- Load your provided main.js AFTER DOM so it can safely call document.getElementById -->
+  <script src="env-config.js"> </script>
+  <script src="main.js"></script>
+</body>
+</html>
