@@ -199,6 +199,10 @@ Troubleshooting:
 - If docker push fails, confirm gcloud authentication (step 3) and that Artifact Registry repo names match your Terraform outputs.
 - If Terraform cannot create resources, inspect service account permissions and provider configuration (provider.tf).
 
+## 📸 Cloud Architecture
+
+![(Cloud Architecture](https://image2url.com/images/1763783936287-11ac1008-c85c-4907-b1be-87175316cc44.png)
+
 ## ☁️ Cloud Infrastructure Setup (Google Cloud Platform)
 
 This section covers deploying the application to Google Cloud Platform (Cloud Run) using Terraform and Google Artifact Registry.
